@@ -7,7 +7,8 @@ namespace EveryoneCourses.ClassLibrary
     {
 
         public DbSet<Course> Courses { get; set; }
-        
+
+        public DbSet<Teacher> Teachers { get; set; }
         public AppDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
             
