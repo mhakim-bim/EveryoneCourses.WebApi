@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using EveryoneCourses.ClassLibrary;
+﻿using EveryoneCourses.ClassLibrary;
 using EveryoneCourses.ClassLibrary.Models;
 using EveryoneCourses.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EveryoneCourses.Repository.Implementation
 {
@@ -15,10 +15,10 @@ namespace EveryoneCourses.Repository.Implementation
         {
             _appDbContext = appDbContext;
         }
-        
+
         public async Task<IEnumerable<Course>> GetAllCoursesAsync()
         {
-            return await _appDbContext.Courses.ToListAsync();
+            return await _appDbContext.Courses.Include(c => c.Teacher).ToListAsync();
         }
     }
 }
