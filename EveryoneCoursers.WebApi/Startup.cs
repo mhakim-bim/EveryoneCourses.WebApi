@@ -35,7 +35,14 @@ namespace EveryoneCoursers.WebApi
         {
             // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //     .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
-
+            
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+            
             services.AddControllers();
             services.AddDbContext<AppDbContext>
             (item => item.UseSqlServer(Configuration.GetConnectionString("localDb")));
@@ -57,14 +64,11 @@ namespace EveryoneCoursers.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EveryoneCoursers.WebApi v1"));
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("MyPolicy");
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
