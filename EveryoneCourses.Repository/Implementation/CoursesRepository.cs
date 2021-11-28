@@ -18,7 +18,17 @@ namespace EveryoneCourses.Repository.Implementation
 
         public async Task<IEnumerable<Course>> GetAllCoursesAsync()
         {
-            return await _appDbContext.Courses.Include(c => c.Teacher).ToListAsync();
+            return await _appDbContext.Courses
+                .Include(c => c.Teacher)
+                .ToListAsync();
+        }
+
+        public async Task<Course> CreateCourseAsync(Course newCourse)
+        {
+            var course =  _appDbContext.Courses.Add(newCourse);
+            await _appDbContext.SaveChangesAsync();
+            await course.Reference(c => c.Teacher).LoadAsync();
+            return course.Entity;
         }
     }
 }

@@ -4,28 +4,27 @@ using System;
 using System.Threading.Tasks;
 using EveryoneCourses.ClassLibrary.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EveryoneCoursers.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoursesController : ControllerBase
+    public class TeachersController : ControllerBase
     {
-        private readonly ICoursersRepository _coursersRepository;
+        private readonly ITeachersRepository _teachersRepository;
 
-        public CoursesController(ICoursersRepository coursersRepository)
+        public TeachersController(ITeachersRepository teachersRepository)
         {
-            _coursersRepository = coursersRepository;
+            _teachersRepository = teachersRepository;
         }
 
 
-        [HttpGet("getAllCourses")]
-        public async Task<ActionResult> GetAllCourses()
+        [HttpGet("getAllTeachers")]
+        public async Task<ActionResult> GetAllTeachers()
         {
             try
             {
-                var result = await _coursersRepository.GetAllCoursesAsync();
+                var result = await _teachersRepository.GetAllTeachersAsync();
                 return Ok(result);
             }
             catch (Exception exception)
@@ -36,11 +35,11 @@ namespace EveryoneCoursers.WebApi.Controllers
 
         
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateCourse([FromBody]Course course)
+        public async Task<ActionResult> CreateTeacher([FromBody]Teacher teacher)
         {
             try
             {
-                var result = await _coursersRepository.CreateCourseAsync(course);
+                var result = await _teachersRepository.CreateTeacher(teacher);
                 return Ok(result);
             }
             catch (Exception exception)

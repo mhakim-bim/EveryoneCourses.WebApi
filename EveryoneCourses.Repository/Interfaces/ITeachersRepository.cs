@@ -4,10 +4,9 @@ using EveryoneCourses.ClassLibrary.Models;
 
 namespace EveryoneCourses.Repository.Interfaces
 {
-    public interface ICoursersRepository
+    public interface ITeachersRepository
     {
-        Task<IEnumerable<Course>> GetAllCoursesAsync();
-
-        Task<Course> CreateCourseAsync(Course newCourse);
+        Task<IEnumerable<Teacher>> GetAllTeachersAsync();
+        Task<Teacher> CreateTeacher(Teacher newTeacher);
     }
 }

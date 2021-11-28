@@ -48,7 +48,7 @@ namespace EveryoneCoursers.WebApi
             (item => item.UseSqlServer(Configuration.GetConnectionString("localDb")));
             
             services.AddTransient<ICoursersRepository, CoursesRepository>();
-            
+            services.AddTransient<ITeachersRepository, TeachersRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EveryoneCoursers.WebApi", Version = "v1" });
