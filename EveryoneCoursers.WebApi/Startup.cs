@@ -44,6 +44,14 @@ namespace EveryoneCoursers.WebApi
             }));
             
             services.AddControllers();
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
+            
+
             services.AddDbContext<AppDbContext>
             (item => item.UseSqlServer(Configuration.GetConnectionString("localDb")));
             

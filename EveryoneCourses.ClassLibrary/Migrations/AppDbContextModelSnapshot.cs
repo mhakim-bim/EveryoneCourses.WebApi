@@ -108,7 +108,7 @@ namespace EveryoneCourses.ClassLibrary.Migrations
             modelBuilder.Entity("EveryoneCourses.ClassLibrary.Models.Course", b =>
                 {
                     b.HasOne("EveryoneCourses.ClassLibrary.Models.Teacher", "Teacher")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

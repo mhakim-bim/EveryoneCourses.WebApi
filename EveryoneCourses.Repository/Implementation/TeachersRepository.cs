@@ -20,7 +20,10 @@ namespace EveryoneCourses.Repository.Implementation
         
         public async Task<IEnumerable<Teacher>> GetAllTeachersAsync()
         {
-            return await _appDbContext.Teachers.ToListAsync();
+            return await _appDbContext.Teachers
+                .AsNoTracking()
+                .Include(t => t.Courses)
+                .ToListAsync();
         }
 
         public async Task<Teacher> CreateTeacher(Teacher newTeacher)
