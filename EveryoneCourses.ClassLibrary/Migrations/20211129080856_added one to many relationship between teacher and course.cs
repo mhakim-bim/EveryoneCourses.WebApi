@@ -13,5 +13,7 @@ namespace EveryoneCourses.ClassLibrary.Migrations
         {
 
         }
+        
+        
     }
 }

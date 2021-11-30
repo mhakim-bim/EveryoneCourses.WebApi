@@ -13,6 +13,8 @@ namespace EveryoneCourses.ClassLibrary.Models
         public decimal Rating { get; set; }
         public int TotalNumberOfStudents { get; set; }
 
+
+
         public virtual ICollection<Course> Courses { get; set; }
 
     }
