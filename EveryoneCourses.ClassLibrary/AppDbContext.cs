@@ -1,10 +1,12 @@
 ﻿using EveryoneCourses.ClassLibrary.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace EveryoneCourses.ClassLibrary
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
 
         public DbSet<Course> Courses { get; set; }
@@ -17,6 +19,8 @@ namespace EveryoneCourses.ClassLibrary
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Course>().HasData(
                 new Course()
                 {
