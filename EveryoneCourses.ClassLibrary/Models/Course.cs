@@ -19,6 +19,8 @@ namespace EveryoneCourses.ClassLibrary.Models
         public virtual Teacher Teacher { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        
+        [Column(TypeName = "decimal(2,2)")]
         public decimal Rating { get; set; }
         public int NumberOfStudents { get; set; }
     }
