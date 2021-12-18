@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveryoneCourses.Repository"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryoneCourses.UnitTests", "EveryoneCourses.UnitTests\EveryoneCourses.UnitTests.csproj", "{5587A420-2B8F-4E4F-835C-C5EBFDE521ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryoneCourses.IntegrationTests", "EveryoneCourses.IntegrationTests\EveryoneCourses.IntegrationTests.csproj", "{1B181DF0-5BFA-44D3-AEBF-7A7F16500E33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5587A420-2B8F-4E4F-835C-C5EBFDE521ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5587A420-2B8F-4E4F-835C-C5EBFDE521ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5587A420-2B8F-4E4F-835C-C5EBFDE521ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B181DF0-5BFA-44D3-AEBF-7A7F16500E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B181DF0-5BFA-44D3-AEBF-7A7F16500E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B181DF0-5BFA-44D3-AEBF-7A7F16500E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B181DF0-5BFA-44D3-AEBF-7A7F16500E33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

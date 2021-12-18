@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using EveryoneCourses.ClassLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace EveryoneCoursers.WebApi.Controllers
@@ -20,6 +21,7 @@ namespace EveryoneCoursers.WebApi.Controllers
 
 
         [HttpGet("getAllTeachers")]
+        [AllowAnonymous]
         public async Task<ActionResult> GetAllTeachers()
         {
             try
