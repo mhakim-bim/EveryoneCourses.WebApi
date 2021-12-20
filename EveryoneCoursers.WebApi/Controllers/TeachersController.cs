@@ -35,7 +35,7 @@ namespace EveryoneCoursers.WebApi.Controllers
             }
         }
 
-        
+        [AllowAnonymous]
         [HttpPost("Create")]
         public async Task<ActionResult> CreateTeacher([FromBody]Teacher teacher)
         {
