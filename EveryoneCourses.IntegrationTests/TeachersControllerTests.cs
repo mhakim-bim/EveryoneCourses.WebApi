@@ -10,6 +10,7 @@ using EveryoneCoursers.WebApi;
 using EveryoneCourses.ClassLibrary.Models;
 using EveryoneCourses.IntegrationTests.Fakes;
 using EveryoneCourses.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -35,6 +36,7 @@ namespace EveryoneCourses.IntegrationTests
                 builder.ConfigureTestServices(services =>
                 {
                     services.AddSingleton<ITeachersRepository>(new FakeTeachersRepository());
+                    services.AddSingleton<IPolicyEvaluator,FakePolicyEvaluator>();
                 });
             }) .CreateClient();
 
@@ -68,7 +70,8 @@ namespace EveryoneCourses.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299
-            Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType.ToString());
+            Assert.Equal("application/json; charset=utf-8",
+                response.Content.Headers.ContentType.ToString());
         }
     }
 }

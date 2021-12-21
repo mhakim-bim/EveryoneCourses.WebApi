@@ -79,6 +79,7 @@ namespace EveryoneCoursers.WebApi
         {
             if (env.IsDevelopment())
             {
+                
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EveryoneCoursers.WebApi v1"));

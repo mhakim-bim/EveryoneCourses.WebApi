@@ -1,6 +1,10 @@
 ﻿using System.Threading.Tasks;
 using EveryoneCoursers.WebApi;
+using EveryoneCourses.IntegrationTests.Fakes;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace EveryoneCourses.IntegrationTests
@@ -18,7 +22,13 @@ namespace EveryoneCourses.IntegrationTests
         [Fact]
         public async Task HealthCheck()
         {
-            var client = _factory.CreateDefaultClient();
+            var client = _factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
+                });
+            }).CreateClient();
             var response = await client.GetAsync("/health");
             response.EnsureSuccessStatusCode();
 

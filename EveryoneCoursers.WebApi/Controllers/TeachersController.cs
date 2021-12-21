@@ -20,8 +20,8 @@ namespace EveryoneCoursers.WebApi.Controllers
         }
 
 
+        [Authorize]
         [HttpGet("getAllTeachers")]
-        [AllowAnonymous]
         public async Task<ActionResult> GetAllTeachers()
         {
             try
