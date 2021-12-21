@@ -15,12 +15,18 @@ namespace EveryoneCourses.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
+                //Remove appDbContext service
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
                          typeof(DbContextOptions<AppDbContext>));
-
                 services.Remove(descriptor);
 
+                //Remove teacher service
+                // var teacherService = services.SingleOrDefault(
+                //     d => d.ServiceType ==
+                //          typeof(depe));
+                // services.Remove(teacherService);
+                
                 services.AddDbContext<AppDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
@@ -40,6 +46,8 @@ namespace EveryoneCourses.IntegrationTests
                   
                 }
             });
+
+            //builder.UseEnvironment("Test");
         }
     }
 }

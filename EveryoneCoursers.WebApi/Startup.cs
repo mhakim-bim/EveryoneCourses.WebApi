@@ -28,6 +28,7 @@ namespace EveryoneCoursers.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHealthChecks();
             services.AddAuthentication();
             services.AddAuthorization(options =>
             {
@@ -43,8 +44,6 @@ namespace EveryoneCoursers.WebApi
                 options.Password.RequiredLength = 8;
 
                 options.User.RequireUniqueEmail = true;
-                
-
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddSignInManager<SignInManager<AppUser>>()
@@ -57,16 +56,12 @@ namespace EveryoneCoursers.WebApi
                     .AllowAnyHeader();
             }));
 
-
             services.AddControllers();
-
 
             //Add Microsoft.AspNetCore.Mvc.NewtonsoftJson (Nuget package)
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-
-
 
             services.AddDbContext<AppDbContext>
             (item => item.UseSqlServer(Configuration.GetConnectionString("localDb")));
@@ -94,6 +89,10 @@ namespace EveryoneCoursers.WebApi
             app.UseAuthorization();
             app.UseCors("MyPolicy");
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }

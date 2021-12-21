@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EveryoneCourses.ClassLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace EveryoneCoursers.WebApi.Controllers
         }
         
         
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody]RegisterUser registerUser)
         {
@@ -26,7 +28,12 @@ namespace EveryoneCoursers.WebApi.Controllers
                 var userWithSameEmail = await _userManager.FindByEmailAsync(registerUser.EmailAddress);
                 if (userWithSameEmail != null)
                     throw new Exception("User With Same Email does exist");
-                
+
+                var user = new AppUser()
+                {
+                    Email = registerUser.EmailAddress
+
+                };
                 
                 return Ok();
             }
