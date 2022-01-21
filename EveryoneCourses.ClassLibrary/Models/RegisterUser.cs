@@ -5,7 +5,14 @@ namespace EveryoneCourses.ClassLibrary.Models
 {
     public class RegisterUser
     {
-        public string FullName { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+        
+        [Required]
+        public string LastName { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
         
         [EmailAddress]
         public string EmailAddress { get; set; }

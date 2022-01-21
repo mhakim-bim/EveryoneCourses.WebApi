@@ -1,7 +1,9 @@
+using System.Text;
 using EveryoneCourses.ClassLibrary;
 using EveryoneCourses.ClassLibrary.Models;
 using EveryoneCourses.Repository.Implementation;
 using EveryoneCourses.Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
@@ -29,7 +32,18 @@ namespace EveryoneCoursers.WebApi
         {
 
             services.AddHealthChecks();
-            services.AddAuthentication();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                };
+            });
             services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -44,10 +58,15 @@ namespace EveryoneCoursers.WebApi
                 options.Password.RequiredLength = 8;
 
                 options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+                
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddSignInManager<SignInManager<AppUser>>()
-            .AddUserManager<UserManager<AppUser>>();
+            .AddUserManager<UserManager<AppUser>>()
+            .AddDefaultTokenProviders();
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
